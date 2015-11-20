@@ -24,8 +24,6 @@ class Force
 			return calculate_force
 		end
 		theta = Math.atan((@y2 - @y1)/(@x2 - @x1))
-		puts (@y2 - @y1)/(@x2 - @x1)
-		puts theta
 		forcex = calculate_force * Math.cos(theta)
 	end
 
