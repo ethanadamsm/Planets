@@ -17,6 +17,7 @@ class Window < Gosu::Window
 			array_f.push(array[n].split(" "))
 		end
 		array_f.each do |planet|
+			puts planet[3]
 			@planets.push(Planet.new(planet[0], planet[1], planet[2], planet[3], planet[4], planet[5], @scale))
 		end
 		@background = Gosu::Image.new("images/starmap.jpg")
@@ -42,15 +43,17 @@ class Window < Gosu::Window
 
 	def find_forces
 		forces = []
-		@planets.each do |planet1|
+		(0...@planets.length).each do |n|
 			force = [0, 0]
-			@planets.each do |planet2|
-				if planet1 != planet2
-					force_s = Force.new(planet1.x, planet1.y, planet2.x, planet2.y, planet1.mass, planet2.mass)
-					force[0] += force_s.calculate_forces[0]
-					force[1] += force_s.calculate_forces[1]
-				end
+			x = 0
+			(x...@planets.length).each do |z|
+				if @planets[n] != @planets[z]
+					force_s = Force.new(@planets[n].x, @planets[n].y, @planets[z].x, @planets[z].y, @planets[n].mass, @planets[z].mass)
+					force[0] -= force_s.calculate_forces[0]
+					force[1] -= force_s.calculate_forces[1]
+				end	
 			end
+			x += 1
 			forces.push(force)
 		end
 		forces

@@ -14,7 +14,7 @@ class Force
 	end
 
 	def calculate_force
-		r = (((@x2 - @x1).to_i^2) + ((@y2 - @y1).to_i^2))
+		r = (((@x2 - @x1)**2) + ((@y2 - @y1)**2))
 		force_f = ((1/6.67408e11) * ((@mass1) * (@mass2))) / r
 		force_f
 	end
@@ -25,6 +25,7 @@ class Force
 		end
 		theta = Math.atan((@y2 - @y1)/(@x2 - @x1))
 		forcex = calculate_force * Math.cos(theta)
+		((calculate_force * (@x2 - @x1)) / ((@x2 - @x1)**2 + (@y2 - @y2)**2)).to_f
 	end
 
 	def force_y
