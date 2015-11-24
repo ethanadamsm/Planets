@@ -1,12 +1,13 @@
 class Force
 
-	def initialize(x1, y1, x2, y2, mass1, mass2)
+	def initialize(x1, y1, x2, y2, mass1, mass2, scale)
 		@x1 = x1
 		@y1 = y1 
 		@x2 = x2
 		@y2 = y2
 		@mass1 = mass1
 		@mass2 = mass2
+		@scale = scale
 	end
 
 	def calculate_forces
@@ -23,17 +24,18 @@ class Force
 		if @x2 == @x1
 			return calculate_force
 		end
-		theta = Math.atan((@y2 - @y1)/(@x2 - @x1))
-		forcex = calculate_force * Math.cos(theta)
-		((calculate_force * (@x2 - @x1)) / ((@x2 - @x1)**2 + (@y2 - @y2)**2)).to_f
+		r = (((@x2 - @x1)**2) + ((@y2 - @y1)**2))
+		forcex = calculate_force * (@x2 - @x1 / @scale) / r
+		forcex.to_f
 	end
 
 	def force_y
 		if @y2 == @y1
 			return calculate_force
 		end
-		theta = Math.atan((@y2 - @y1)/(@x2 - @y2))
-		forcex = calculate_force * Math.sin(theta)
+		r = (((@x2 - @x1)**2) + ((@y2 - @y1)**2))
+		forcex = calculate_force * (@y2 - @y1 / @scale) / r
+		forcex.to_f
 	end
 
 end
